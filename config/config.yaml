@@ -1,0 +1,26 @@
+storage:
+  type: sqlite
+  path: /data/data.db
+
+endpoints:
+  - name: komodo
+    group: core
+    url: "https://komodo.kluhan.dev/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+
+  - name: fenrir
+    group: hardware
+    url: "https://192.168.100.10/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: draugr
+    group: hardware
+    url: "https://192.168.100.20/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"

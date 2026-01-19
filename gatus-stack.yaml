@@ -1,0 +1,34 @@
+version: "3.8"
+
+networks:
+  traefik-public:
+    external: true
+
+configs:
+  gatus-config:
+    file: ./config/config.yaml
+
+volumes:
+  gatus-data:
+
+services:
+  gatus:
+    image: twinproduction/gatus:latest
+    networks:
+      - traefik-public
+    configs:
+      - source: gatus-config
+        target: /config/config.yaml
+    volumes:
+      - gatus-data:/data
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == polaris 
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.uptime.rule=Host(`uptime.kluhan.dev`)
+        - traefik.http.routers.uptime.entrypoints=websecure
+        - traefik.http.routers.uptime.tls=true
+        - traefik.http.routers.uptime.tls.certresolver=letsencrypt
+        - traefik.http.services.uptime.loadbalancer.server.port=8080
