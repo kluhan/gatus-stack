@@ -13,14 +13,14 @@ endpoints:
 
   - name: fenrir
     group: hardware
-    url: "https://192.168.100.10/"
+    url: "https://fenrir.kluhan.dev/"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
 
   - name: draugr
     group: hardware
-    url: "https://192.168.100.20/"
+    url: "https://draugr.kluhan.dev/"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
